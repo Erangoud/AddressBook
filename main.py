@@ -54,10 +54,22 @@ class AddressBookMain:  # use case 1
         else:
             print(f"No contact found with the name {name}.")
 
+    def del_contact(self): #use case 4
+        name=input('enter the name to delete the contact : ')
+
+        if name in self.contacts:
+            del self.contacts[name]
+            print(f'The {name} conatact has been deleted for the book ')
+        else:
+            print(f'the contact name : {name} doesnt exist in book')
+
 
 
 ob1=AddressBookMain()
-ob1.add_contacts()
-AddressBookMain.view_all_contacts()
-ob1.edit_contact()
+ob2=AddressBookMain()
 
+ob1.add_contacts()
+ob2.add_contacts()
+
+ob1.edit_contact()
+AddressBookMain.view_all_contacts()
