@@ -9,11 +9,11 @@ class Contact:  # use case 2
         self.email = email
 
     def __str__(self):
-        return (f'{self.name},{self.address},{self.city},{self.state},{self.zip},{self.phoneno},{self.email}')
+        return (f'[{self.name},{self.address},{self.city},{self.state},{self.zip},{self.phoneno},{self.email}]')
 
 
 class AddressBookMain:  # use case 1
-    contacts = {}  # Store contacts in a dictionary
+    contacts = {}  
 
     def __init__(self):
         print("Welcome to AddressBook program")
@@ -26,27 +26,38 @@ class AddressBookMain:  # use case 1
         zip = input('zip :')
         phoneno = input('phoneno :')
         email = input('email :')
-        new_contact = Contact(name, address, city, state, zip, phoneno, email)
-        self.contacts[name] = new_contact  # Add the contact to the dictionary with name as the key
+        if name in self.contacts:
+            print(f"Contact with name {name} already exists.")
+        else:
+            new_contact = Contact(name, address, city, state, zip, phoneno, email)
+            self.contacts[name] = new_contact  # Adding the contact to the dictionary with name as the key
 
     @staticmethod
     def view_all_contacts():
         print('All contacts:')
         for name, contact in AddressBookMain.contacts.items():
-            print(contact)
+            print(f'{name}:{contact}')
 
-    def display_contacts(self):
-        print("specified Contact details:")
-        for name, contact in self.contacts.items():
-            print(f'[Name: {name}, Address: {contact.address}]')
+    
+    def edit_contact(self):  # use case 3
+        name = input('Enter the name of the contact to edit: ')
+        if name in self.contacts:
+            print(f"Editing contact: {self.contacts[name]}")
+            address = input('New address (press Enter to skip): ') or self.contacts[name].address
+            city = input('New city (press Enter to skip): ') or self.contacts[name].city
+            state = input('New state (press Enter to skip): ') or self.contacts[name].state
+            zip = input('New zip (press Enter to skip): ') or self.contacts[name].zip
+            phoneno = input('New phoneno (press Enter to skip): ') or self.contacts[name].phoneno
+            email = input('New email (press Enter to skip): ') or self.contacts[name].email
+            self.contacts[name] = Contact(name, address, city, state, zip, phoneno, email)
+            print(f"Contact updated successfully: {self.contacts[name]}")
+        else:
+            print(f"No contact found with the name {name}.")
 
 
 
 ob1=AddressBookMain()
-ob2=AddressBookMain()
 ob1.add_contacts()
-ob2.add_contacts()
-# ob1.display_contacts()
 AddressBookMain.view_all_contacts()
-
+ob1.edit_contact()
 
