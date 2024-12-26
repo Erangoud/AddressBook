@@ -95,6 +95,24 @@ class AddressBookMain:  # use case 1
         for name in self.address_books.keys():
             print(f"- {name}")
 
+    def search_person_by_city_or_state(self): # use case 8
+        criteria = input("search by 'city' or 'state':")
+        if criteria != 'city' and criteria != 'state':
+            print('invalid choice . select either "city" or "state" ')
+            return
+        search_value=input(f"enter the {criteria} to search : ")
+        print(f"searching for contacts by {criteria}:{search_value}")
+
+        found=False # a flag 
+        for addressbook,contacts in self.address_books.items():
+            for name,contact in contacts.items():
+                if (criteria=='city' and contact.city==search_value) or (criteria=='state' and contact.state==search_value):
+                    print(f"found in address book '{addressbook}':{contact}")
+                    found=True
+        if not found:
+            print(f"no contacts found for {criteria}'{search_value}")
+
+
 
 
 ob = AddressBookMain()
@@ -106,7 +124,8 @@ while True:
     print("4. Edit Contact")
     print("5. Delete Contact")
     print("6. View All Address Books")
-    print("7. Exit")
+    print("7. search person by city or state")
+    print("8. Exit")
 
     #add multiple Address Book and contacts to the System :- use case 5
     choice = input("Enter your choice: ")
@@ -123,6 +142,8 @@ while True:
     elif choice == '6':
         ob.view_all_address_books()
     elif choice == '7':
+        ob.search_person_by_city_or_state()
+    elif choice == '8':
         print("Exiting Address Book program Thankyou.")
         break
     else:
