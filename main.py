@@ -18,8 +18,7 @@ class AddressBookMain:  # use case 1
     def __init__(self):
         print("Welcome to AddressBook program")
 
-    def create_address_book(self):  # use case 6
-        """Each Address Book has a unique Name"""
+    def create_address_book(self):  # use case 5/6
         name = input('Enter a unique name for the new address book: ')
         if name in self.address_books:
             print(f"Address book '{name}' already exists.")
@@ -41,7 +40,7 @@ class AddressBookMain:  # use case 1
         zip = input('zip: ')
         phoneno = input('phoneno: ')
         email = input('email: ')
-        if name in contacts:
+        if name in contacts: # use case 7 Ability to ensure there is no Duplicate Entry of the same Person in a particular Address Book
             print(f"Contact with name {name} already exists in address book '{address_book_name}'.")
         else:
             new_contact = Contact(name, address, city, state, zip, phoneno, email)
@@ -91,7 +90,7 @@ class AddressBookMain:  # use case 1
         else:
             print(f"The contact name '{name}' does not exist in address book '{address_book_name}'.")
 
-    def view_all_address_books(self):  # UC5
+    def view_all_address_books(self):  # use case 5
         print("All address books:")
         for name in self.address_books.keys():
             print(f"- {name}")
@@ -109,7 +108,7 @@ while True:
     print("6. View All Address Books")
     print("7. Exit")
 
-    #add multiple Address Book to the System
+    #add multiple Address Book and contacts to the System :- use case 5
     choice = input("Enter your choice: ")
     if choice == '1':
         ob.create_address_book()
