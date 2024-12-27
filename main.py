@@ -14,7 +14,8 @@ class Contact:  # use case 2
 
 class AddressBookMain:  # use case 1
     address_books = {}  # Dictionary of Address Book Name to Address book 
-
+    address_book_city={}
+    address_book_state={}
     def __init__(self):
         print("Welcome to AddressBook program")
 
@@ -23,7 +24,7 @@ class AddressBookMain:  # use case 1
         if name in self.address_books:
             print(f"Address book '{name}' already exists.")
         else:
-            self.address_books[name] = {}  # Create a new, empty address book
+            self.address_books[name] = {}  
             print(f"Address book '{name}' created successfully.")
 
     def add_contacts(self):  # use case 2
@@ -31,7 +32,7 @@ class AddressBookMain:  # use case 1
         if address_book_name not in self.address_books:
             print(f"Address book '{address_book_name}' does not exist. Create it first.")
             return
-        contacts = self.address_books[address_book_name]  # Access the specific address book
+        contacts = self.address_books[address_book_name] 
     
         name = input('name: ')
         address = input('address: ')
@@ -113,9 +114,32 @@ class AddressBookMain:  # use case 1
             print(f"no contacts found for {criteria}'{search_value}")
 
 
+    def view_persons_by_city_or_state(self):  # use case 9
+        criteria = input("View persons by 'city' or 'state': ")
+        if criteria not in ['city', 'state']:
+            print("Invalid choice. Select either 'city' or 'state'.")
+            return
+        store = self.address_book_city if criteria == 'city' else self.address_book_state
+        store.clear()
+
+                
+        for addressbook,contacts in self.address_books.items():
+            for name,contact in contacts.items():
+                key=contact.city if criteria=='city' else contact.state
+                
+                if key not in store:
+                    store[key]=[]
+                store[key].append(contact)
+
+        for key,persons in store.items():
+                print(f'{criteria}:{key}')
+                for person in persons:
+                    print(f'{person}')
+
 
 
 ob = AddressBookMain()
+
 while True:
     print("\nMenu:")
     print("1. Create Address Book")
@@ -125,7 +149,8 @@ while True:
     print("5. Delete Contact")
     print("6. View All Address Books")
     print("7. search person by city or state")
-    print("8. Exit")
+    print("8. view person by city or state")
+    print("9. Exit")
 
     #add multiple Address Book and contacts to the System :- use case 5
     choice = input("Enter your choice: ")
@@ -144,6 +169,8 @@ while True:
     elif choice == '7':
         ob.search_person_by_city_or_state()
     elif choice == '8':
+        ob.view_persons_by_city_or_state()
+    elif choice == '9':
         print("Exiting Address Book program Thankyou.")
         break
     else:
