@@ -136,6 +136,22 @@ class AddressBookMain:  # use case 1
                 for person in persons:
                     print(f'{person}')
 
+    def count_by_city_or_state(self): #use case 10 
+        criteria=input("count persons by city or state ")
+        if criteria not in ['city','state']:
+            print("invalid choice. select either 'city' or 'state' ")
+            return 
+        count={}
+        for addressbook,contacts in self.address_books.items():
+            for name,contact in contacts.items():
+                key=contact.city if criteria=='city' else contact.state
+                if key not in count:
+                    count[key]=0
+                count[key] +=1
+
+        for key,number in count.items():
+            print(f"city:{key} :--> The total no.of persons found are :{number}")
+                    
 
 
 ob = AddressBookMain()
@@ -150,7 +166,8 @@ while True:
     print("6. View All Address Books")
     print("7. search person by city or state")
     print("8. view person by city or state")
-    print("9. Exit")
+    print("9.Count persons by city or state ")
+    print("10. Exit")
 
     #add multiple Address Book and contacts to the System :- use case 5
     choice = input("Enter your choice: ")
@@ -171,6 +188,8 @@ while True:
     elif choice == '8':
         ob.view_persons_by_city_or_state()
     elif choice == '9':
+        ob.count_by_city_or_state()
+    elif choice == '10':
         print("Exiting Address Book program Thankyou.")
         break
     else:
