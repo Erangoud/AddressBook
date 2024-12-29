@@ -153,6 +153,22 @@ class AddressBookMain:  # use case 1
             print(f"city:{key} :--> The total no.of persons found are :{number}")
                     
 
+    def sort_contacts_by_name(self):
+        book_name=input("enter the address book name to sort :")
+        if book_name not in self.address_books:
+            print(f"The addressbook {book_name} doesn't exists ")
+            return
+        contacts=self.address_books[book_name]
+        if not contacts:
+            print(f"Address book '{book_name}' has no contacts to sort.")
+            return
+        sorted_contacts=sorted(contacts.items(),key=lambda x :x[0])
+        print(type(sorted_contacts))
+        print(f"This are the sorted contacts  :")
+        for  name,contacts in  sorted_contacts:
+            print(contacts)
+
+
 
 ob = AddressBookMain()
 
@@ -167,7 +183,8 @@ while True:
     print("7. search person by city or state")
     print("8. view person by city or state")
     print("9.Count persons by city or state ")
-    print("10. Exit")
+    print("10. sort contacts by name")
+    print("11. Exit")
 
     #add multiple Address Book and contacts to the System :- use case 5
     choice = input("Enter your choice: ")
@@ -190,6 +207,8 @@ while True:
     elif choice == '9':
         ob.count_by_city_or_state()
     elif choice == '10':
+        ob.sort_contacts_by_name()
+    elif choice == '11':
         print("Exiting Address Book program Thankyou.")
         break
     else:
